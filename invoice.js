@@ -9,7 +9,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ces références seront réutilisées dans plusieurs fonctions
     const invoiceTable = document.getElementById('invoiceTable').getElementsByTagName('tbody')[0];
+    console.log(invoiceTable);
+    
     const invoiceTotal = document.getElementById('invoiceTotal');
+    console.log(invoiceTotal);
+
+    const rows = document.querySelectorAll('#invoiceTable tbody tr');
+    console.log(rows);
+
+    rows.forEach((ligne)=> {
+        updateItemTotal(ligne)
+    })
+
+   
+   updateInvoiceTotal();
+    
 
 
 
@@ -23,8 +37,44 @@ document.addEventListener('DOMContentLoaded', function() {
      * - Retourner le total calculé afin de pouvoir le réutiliser
      */
     function updateItemTotal(row) {
+        
+
+        let quantityInput = row.querySelector('.quantity');
+            console.log(quantityInput);
+            console.log(quantityInput.value);
+        let quantityValue = quantityInput.value;
+
+        let unitPriceInput = row.querySelector('.unitPrice');
+            console.log(unitPriceInput);
+            console.log(unitPriceInput.value);
+        let unitPriceValue = unitPriceInput.value;
+
+        let unitNumber = Number(unitPriceValue);
+        console.log(unitNumber);
+        
+        let quantityNumber = Number(quantityValue);
+        console.log(quantityNumber);
+        
+       let total = unitNumber * quantityNumber;
+       console.log(total);
        
-    }
+       let itemTotal = row.querySelector('.itemTotal');
+       console.log(itemTotal);
+
+       itemTotal.textContent = total.toFixed(2);
+       return total;
+       
+       
+        }
+   
+      
+
+       
+       
+       
+      
+       
+    
 
 
     /**
