@@ -9,21 +9,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ces références seront réutilisées dans plusieurs fonctions
     const invoiceTable = document.getElementById('invoiceTable').getElementsByTagName('tbody')[0];
-    console.log(invoiceTable);
+    //console.log(invoiceTable);
+    const lignes = invoiceTable.querySelectorAll('tr');
+    //console.log(lignes);
+     lignes.forEach((ligne)=> {
+        //console.log(ligne);
+        
+        updateItemTotal(ligne);
+        
+
+     
+     })
+
+   updateInvoiceTotal();
+  
     
     const invoiceTotal = document.getElementById('invoiceTotal');
-    console.log(invoiceTotal);
-
-    const rows = document.querySelectorAll('#invoiceTable tbody tr');
-    console.log(rows);
-
-    rows.forEach((ligne)=> {
-        updateItemTotal(ligne)
-    })
-
-   
-   updateInvoiceTotal();
+   // console.log(invoiceTotal);
     
+
 
 
 
@@ -37,44 +41,38 @@ document.addEventListener('DOMContentLoaded', function() {
      * - Retourner le total calculé afin de pouvoir le réutiliser
      */
     function updateItemTotal(row) {
+  
         
+           const inputQuantity = row.querySelector('.quantity');
+           //  console.log(imputQuantity);
+             const inputunitPrice = row.querySelector('.unitPrice');
+              // console.log(inputunitPrice);
 
-        let quantityInput = row.querySelector('.quantity');
-            console.log(quantityInput);
-            console.log(quantityInput.value);
-        let quantityValue = quantityInput.value;
+              let totalinput = row.querySelector('.itemTotal');
+              console.log(totalinput);
+              
 
-        let unitPriceInput = row.querySelector('.unitPrice');
-            console.log(unitPriceInput);
-            console.log(unitPriceInput.value);
-        let unitPriceValue = unitPriceInput.value;
+           row.addEventListener('change', function (element) {
+                let quantityValue = inputQuantity.value;
+                // console.log(quantityValue);
+                //  console.log(typeof(quantityValue));
+                    let quantity = Number(quantityValue);
+                    console.log(quantity);
 
-        let unitNumber = Number(unitPriceValue);
-        console.log(unitNumber);
-        
-        let quantityNumber = Number(quantityValue);
-        console.log(quantityNumber);
-        
-       let total = unitNumber * quantityNumber;
-       console.log(total);
-       
-       let itemTotal = row.querySelector('.itemTotal');
-       console.log(itemTotal);
+             let unitpriceValue = inputunitPrice.value;
+             // console.log(unitpriceValue);
+            // console.log(typeof(unitpriceValue));
+             let unitPrice = Number(unitpriceValue);
+             console.log(unitPrice);
 
-       itemTotal.textContent = total.toFixed(2);
-       return total;
-       
-       
-        }
-   
-      
+          let total = quantity * unitPrice ;
+            console.log(total)
+             totalinput = total.toFixed(2);
+            console.log(totalinput);
+            return totalinput;
+           })
 
-       
-       
-       
-      
-       
-    
+    }
 
 
     /**
